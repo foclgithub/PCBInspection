@@ -1,0 +1,34 @@
+﻿<Window x:Class="PCBInspection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:PCBInspection.View"
+        xmlns:local="clr-namespace:PCBInspection"
+        xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet"
+        Title="电路板芯片检测" Height="640" Width="1024"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded" Left="0" Top="0"
+        FontFamily="Meiryo" FontSize="18"
+        >
+    <DockPanel>
+        <!--<view:MainMenu DockPanel.Dock="Top" Width="Auto" Background="#00000000" />-->
+        <view:MainToolBar DockPanel.Dock="Top" />     
+        <view:MainStatusBar DockPanel.Dock="Bottom" />
+        <Grid Height="Auto" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>          
+            <Grid Grid.Column="0" Margin="5,5,0,5" >
+                <WindowsFormsHost OpacityMask="Black" Margin="0,0,5,0">
+                    <local:ImagePanel x:Name="CameraViewer" />
+                </WindowsFormsHost>
+            </Grid>
+            <GridSplitter Grid.Column="0" Width="5" HorizontalAlignment="Right" Opacity="0" />
+            <Grid Grid.Column="1"  Margin="0,5,5,5" >
+                <WindowsFormsHost  >
+                    <halcon:HWindowControl x:Name="ImageProcessViewer" AutoSize="True" BorderColor="Blue" />
+                </WindowsFormsHost>
+            </Grid> 
+        </Grid>
+    </DockPanel>
+</Window>

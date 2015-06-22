@@ -1,0 +1,44 @@
+﻿<ToolBar x:Class="PCBInspection.View.MainToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" FontFamily="Meiryo" FontSize="18"  >
+    <Button Margin="10,0" Command="{Binding Path=OpenCameraCommand}">
+        启动相机
+    </Button>
+
+    <Button Margin="10,0" Command="{Binding Path=SnapshotCommand}">
+        拍摄照片
+    </Button>
+
+    <Button Margin="10,0" Command="{Binding Path=CloseCameraCommand}">
+        关闭相机
+    </Button>
+    <Separator />
+    
+    <Button Margin="10,0" Command="{Binding Path=DetectOnceCommand}" >
+        手动检测
+    </Button>
+
+    <Button Margin="10,0" Command="{Binding Path=StartDetectCommand}" >
+        自动检测
+    </Button>
+    
+    <Button Margin="10,0" Command="{Binding Path=StopDetectCommand}" >
+        停止检测
+    </Button>
+    <Separator />
+
+    <Button Margin="10,0" Command="{Binding Path=ClearRecordsCommand}" >
+        重置计数
+    </Button>
+    
+    <Separator />
+    <Menu FontFamily="Meiryo" FontSize="18" Background="#00000000" >
+        <MenuItem Header="设定"  >
+            <MenuItem Header="相机设置" Command="{Binding Path=CameraController.SetCommand}" />
+            <MenuItem Header="图像处理" Command="{Binding Path=OpenSettingCommand}" />
+        </MenuItem>
+    </Menu>
+</ToolBar>

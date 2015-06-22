@@ -1,0 +1,35 @@
+﻿<Menu x:Class="PCBInspection.View.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:vm="clr-namespace:PCBInspection.ViewModel" FontFamily="Meiryo" FontSize="18" >
+    <Menu.Resources>
+        <vm:ReverseBoolConverter x:Key="ReverseBoolConverter" />
+    </Menu.Resources>
+    
+    <!--<MenuItem Header="相机" Margin="5" IsEnabled="{Binding Path=IsDetecting, Converter={StaticResource ReverseBoolConverter}}">
+        <MenuItem Header="打开" Command="{Binding Path=CameraController.OpenCommand}" />
+        <MenuItem Header="关闭" Command="{Binding Path=CameraController.CloseCommand}" />
+        <MenuItem Header="设置" Command="{Binding Path=CameraController.SetCommand}" />
+        <MenuItem Header="拍照" Command="{Binding Path=CameraController.SnapshotCommand}" />
+        <MenuItem Header="预览" Command="{Binding Path=CameraController.PreviewCommand}" CommandParameter="true" />
+        <MenuItem Header="停止预览" Command="{Binding Path=CameraController.PreviewCommand}" CommandParameter="false" />
+    </MenuItem>
+    <MenuItem Header="图像处理" Margin="5" IsEnabled="{Binding Path=IsDetecting, Converter={StaticResource ReverseBoolConverter}}">
+        <MenuItem Header="设置" Command="{Binding Path=OpenSettingCommand}" />
+    </MenuItem>-->
+
+    <MenuItem Header="启动相机" Command="{Binding Path=OpenCameraCommand}" />        
+    <MenuItem Header="拍摄照片" Command="{Binding Path=SnapshotCommand}"/>
+    <MenuItem Header="关闭相机"  Command="{Binding Path=CloseCameraCommand}" />
+    <Separator />
+    <MenuItem Header="手动检测" Command="{Binding Path=DetectOnceCommand}" />
+    <MenuItem Header="自动检测" Command="{Binding Path=StartDetectCommand}" />
+    <MenuItem Header="停止检测" Command="{Binding Path=StopDetectCommand}" />
+    <Separator />
+    <MenuItem Header="重置计数" Command="{Binding Path=ClearRecordsCommand}" />
+    <Separator />
+    <MenuItem Header="设定">
+        <MenuItem Header="相机设置" Command="{Binding Path=CameraController.SetCommand}" />
+        <MenuItem Header="图像处理" Command="{Binding Path=OpenSettingCommand}" />
+    </MenuItem>
+</Menu>

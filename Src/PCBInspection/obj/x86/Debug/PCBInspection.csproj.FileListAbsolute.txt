@@ -1,0 +1,1 @@
+H:\PCBInspection\PCBInspection\bin\Debug\PCBInspection.exe.config
