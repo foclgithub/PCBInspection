@@ -1,7 +1,7 @@
 ﻿<Menu x:Class="PCBInspection.View.MainMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       xmlns:vm="clr-namespace:PCBInspection.ViewModel" FontFamily="Meiryo" FontSize="18" >
+       xmlns:vm="clr-namespace:PCBInspection.ViewModel" FontFamily="Meiryo" FontSize="12" >
     <Menu.Resources>
         <vm:ReverseBoolConverter x:Key="ReverseBoolConverter" />
     </Menu.Resources>
@@ -28,8 +28,8 @@
     <Separator />
     <MenuItem Header="重置计数" Command="{Binding Path=ClearRecordsCommand}" />
     <Separator />
-    <MenuItem Header="设定">
-        <MenuItem Header="相机设置" Command="{Binding Path=CameraController.SetCommand}" />
+    <MenuItem Header="设定" IsEnabled="False" >
+        <MenuItem Header="相机设定" Command="{Binding Path=OpenCameraSettingCommand}" />
         <MenuItem Header="图像处理" Command="{Binding Path=OpenSettingCommand}" />
     </MenuItem>
 </Menu>

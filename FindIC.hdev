@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.0" halcon_version="10.0" cs="401787506">
+<hdevelop file_version="1.0" halcon_version="10.0" cs="862026182">
 <procedure name="main">
 <interface/>
 <body>
@@ -9,14 +9,22 @@
 <l>*grab_image_async (Image, AcqHandle, -1)</l>
 <l>*close_framegrabber (AcqHandle)</l>
 <c></c>
+<l>*read_image (Image, 'H:/PCBInspection/Image_0625204050.bmp')</l>
+<l>*read_image (Image, 'H:/PCBInspection/Image_0625214425.bmp')</l>
+<l>*read_image (Image, 'H:/PCBInspection/捕获.PNG')</l>
+<c></c>
+<c></c>
 <c></c>
 <c>*获得模板图像</c>
-<l>ImagePath :='H:/PCBDetect/晟朗/电路板检测/Image/正常 - 副本.bmp'</l>
+<l>*ImagePath :='H:/PCBDetect/晟朗/电路板检测/Image/正常 - 副本.bmp'</l>
 <c></c>
-<l>read_image (Image, 'H:/PCBDetect/例子/TempImages/QQ图片20150613094259.jpg')</l>
-<c></c>
-<c></c>
+<l>*read_image (Image, 'H:/PCBDetect/例子/TempImages/QQ图片20150613094259.jpg')</l>
 <l>*read_image (Image, ImagePath)</l>
+<c></c>
+<l>*read_image (Image, 'H:/PCBInspection/Image_0625213024.bmp')</l>
+<c></c>
+<l>read_image (Image, 'H:/PCBInspection/Images/捕获.PNG')</l>
+<c></c>
 <c></c>
 <c>*显示模板图像</c>
 <l>dev_close_window()</l>
@@ -27,7 +35,7 @@
 <l>stop()</l>
 <c></c>
 <c>*PCB ROI</c>
-<l>threshold (Image, Bright, 100, 255)</l>
+<l>threshold (Image, Bright, 0, 240)</l>
 <l>shape_trans (Bright, RectPCB, 'rectangle2')</l>
 <l>dev_set_color ('green')</l>
 <l>dev_set_line_width (3)</l>
@@ -43,26 +51,35 @@
 <l>dev_display(ImagePCB)</l>
 <l>stop()</l>
 <c></c>
-<l>threshold (ImagePCB, Regions, 0, 35)</l>
+<l>threshold (Image, Regions, 0, 100)</l>
 <l>dev_display(Regions)</l>
 <l>stop()</l>
 <c></c>
-<l>opening_rectangle1(Regions, RectRegions, 10, 10)</l>
+<c></c>
+<c></c>
+<l>*select_gray(Regions, ImagePCB, SelectedRegions1, 'mean', 'and', 128, 255)</l>
+<c></c>
+<l>opening_rectangle1(Regions, RectRegions, 5, 5)</l>
 <l>dev_clear_window()</l>
 <l>dev_display(RectRegions)</l>
 <l>stop ()</l>
 <c></c>
-<l>connection(RectRegions, ConnectedRegions)</l>
+<c></c>
+<c></c>
+<c></c>
+<l>connection(Regions, ConnectedRegions)</l>
 <l>dev_display(Image)</l>
 <l>dev_display(ConnectedRegions)</l>
 <l>stop ()</l>
 <c></c>
-<l>select_shape_std (ConnectedRegions, SelectedRegions, 'rectangle1', 90)</l>
-<l>dev_display(Image)</l>
-<l>dev_display(SelectedRegions)</l>
-<l>stop ()</l>
 <c></c>
-<l>count_obj(SelectedRegions, RegionCount)</l>
+<c></c>
+<l>*select_shape_std (ConnectedRegions, SelectedRegions, 'rectangle1', 90)</l>
+<l>*dev_display(Image)</l>
+<l>*dev_display(SelectedRegions)</l>
+<l>*stop ()</l>
+<c></c>
+<l>count_obj(ConnectedRegions, RegionCount)</l>
 <l>for i := 1 to RegionCount by 1</l>
 <l>    dev_display(Image)</l>
 <l>    select_obj(SelectedRegions, region, i)</l>

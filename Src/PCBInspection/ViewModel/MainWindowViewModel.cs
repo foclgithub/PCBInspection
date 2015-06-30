@@ -55,29 +55,54 @@ namespace PCBInspection.ViewModel
 
         public ImageProcessorViewModel ImageProcessor { get; private set; }
 
-        #region OpenSetting Command
-        private ICommand openSettingCommand;
-        public ICommand OpenSettingCommand
+        #region OpenImageProcSettingCommand
+        private ICommand openImageProcSettingCommand;
+        public ICommand OpenImageProcSettingCommand
         {
             get
             {
-                if (openSettingCommand == null)
+                if (openImageProcSettingCommand == null)
                 {
-                    openSettingCommand = new RelayCommand((e) => OnOpenSettingCamera(), (e) => OnCanOpenSettingCamera(e));
+                    openImageProcSettingCommand = new RelayCommand((e) => OnOpenImageProcSettingCamera(), (e) => OnCanOpenImageProcSettingCamera(e));
                 }
-                return openSettingCommand;
+                return openImageProcSettingCommand;
             }
         }
-        private bool OnCanOpenSettingCamera(object e)
+        private bool OnCanOpenImageProcSettingCamera(object e)
         {
-            return true;
+            return !this.IsDetecting;
         }
-        private void OnOpenSettingCamera()
+        private void OnOpenImageProcSettingCamera()
         {
             ImageProcessSettingWnd setWnd = new ImageProcessSettingWnd() { Owner = this.mainWindow, WindowStartupLocation = WindowStartupLocation.CenterOwner};
             this.ImageProcessor.ResetModelImageFile();
+            this.ImageProcessor.CurrentModelIC = null;
             setWnd.DataContext = this.ImageProcessor;
             setWnd.Show();
+        }
+        #endregion
+
+        #region Set Command
+        private ICommand openCameraSettingCommand;
+        public ICommand OpenCameraSettingCommand
+        {
+            get
+            {
+                if (openCameraSettingCommand == null)
+                {
+                    openCameraSettingCommand = new RelayCommand((e) => OnOpenCameraSetting(), (e) => OnCanOpenCameraSetting(e));
+                }
+                return openCameraSettingCommand;
+            }
+        }
+        private bool OnCanOpenCameraSetting(object e)
+        {
+            return !this.IsDetecting && this.CameraController.IsOpen;
+        }
+
+        private void OnOpenCameraSetting()
+        {
+            this.CameraController.OpenCameraSetting();
         }
         #endregion
 
@@ -223,14 +248,19 @@ namespace PCBInspection.ViewModel
                 return;
             }
 
-            if (!CheckModelFile())
-            {
-                return;
-            }
+            //if (!CheckModelFile())
+            //{
+            //    return;
+            //}
 
             this.IsDetecting = true;
             if (this.CameraController.Snapshot())
             {
+                if (!LoadICModels())
+                {
+                    return;
+                }
+
                 if (this.ImageProcessor.Detect())
                 {
                     this.OkCount = this.OkCount + 1;
@@ -249,6 +279,16 @@ namespace PCBInspection.ViewModel
             this.IsDetecting = false;
         }
         #endregion
+
+        public bool LoadICModels()
+        {
+            if (!this.ImageProcessor.LoadICModels())
+            {
+                MessageBox.Show("加载芯片模板失败！", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
 
         #region ClearRecords Command
         private ICommand clearRecordsCommand;
@@ -353,6 +393,12 @@ namespace PCBInspection.ViewModel
                 this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(OnCyclicDetectCompleted);
             }
             this.IsDetecting = true;
+
+            if (!LoadICModels())
+            {
+                return false;
+            }
+
             this.worker.RunWorkerAsync();
             return true;
         }

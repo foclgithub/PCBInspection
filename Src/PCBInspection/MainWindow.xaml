@@ -4,7 +4,7 @@
         xmlns:view="clr-namespace:PCBInspection.View"
         xmlns:local="clr-namespace:PCBInspection"
         xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet"
-        Title="电路板芯片检测" Height="640" Width="1024"
+        Title="电路板芯片检测" Height="800" Width="1280"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded" Left="0" Top="0"
         FontFamily="Meiryo" FontSize="18"

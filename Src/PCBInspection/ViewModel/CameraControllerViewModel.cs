@@ -91,11 +91,17 @@ namespace PCBInspection.ViewModel
 
         private void OnSetCamera()
         {
+            OpenCameraSetting();
+        }
+
+        public void OpenCameraSetting()
+        {
             if (this.IsOpen)
             {
                 this.CameraController.OpenSetting();
             }
         }
+
         #endregion
 
         #region Preview Command

@@ -37,8 +37,8 @@
     <Separator />
     <Menu FontFamily="Meiryo" FontSize="18" Background="#00000000" >
         <MenuItem Header="设定"  >
-            <MenuItem Header="相机设置" Command="{Binding Path=CameraController.SetCommand}" />
-            <MenuItem Header="图像处理" Command="{Binding Path=OpenSettingCommand}" />
+            <MenuItem Header="相机设置" Command="{Binding Path=OpenCameraSettingCommand}" />
+            <MenuItem Header="图像处理" Command="{Binding Path=OpenImageProcSettingCommand}" />
         </MenuItem>
     </Menu>
 </ToolBar>
